@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../App.css'
 import './Registration.css'
 import Button from '../button/Button.jsx'
 import Input from '../input/Input.jsx'
-import { registration, sendEmail } from '../../actions.js'
+import { registration, sendEmail} from '../../actions.js'
 
 function Registration() {
 
@@ -12,16 +12,26 @@ function Registration() {
     const [password, setPassword] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
 
+    const [buttonEnabled, setButtonEnabled] = useState(false)
+
     const sendForm = async () => {
         const response = await registration(email, name, password, isAdmin);
         if (response.status === 201) {
             setName('');
             setEmail('');
             setPassword('');
-            const responseEmail = sendEmail(response.data.email);
-            console.log(responseEmail);
+            // const responseEmail = sendEmail(response.data.email);
         }
     }
+
+    useEffect(() => {
+        if(!name || !email || !password || !email.includes('@') || password.length < 8){
+            setButtonEnabled(false)
+        }
+        else{
+            setButtonEnabled(true)
+        }
+    }, [name, email, password])
 
     return (
         <div className="ctn">
@@ -34,7 +44,7 @@ function Registration() {
                     <label className='main-text' htmlFor="admin-checkbox">Сделать администратором</label>
                     <Input changeValueFun={(e) => setIsAdmin(e.target.checked)} inputValue={isAdmin} type="checkbox" id="admin-checkbox"></Input>
                 </div>
-                <Button onClick={sendForm} className="button-red">Создать</Button>
+                <Button disabled={!buttonEnabled} onClick={sendForm} className="button-red">Создать</Button>
             </section>
         </div>
     )

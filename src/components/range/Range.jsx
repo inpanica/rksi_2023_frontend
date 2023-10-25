@@ -3,27 +3,26 @@ import '../../App.css'
 import './Range.css'
 import Input from '../input/Input.jsx'
 
-function Range () {
+function Range ({taskPriority, setTaskPriority, ...props}) {
 
-    const [priority, setPriority] = useState(1)
-    const [priotiryColor, setPriorityColor] = useState('violet')
+    const [priorityColor, setPriorityColor] = useState('violet')
 
     useEffect(() => {
-        if (priority <= 3) {
+        if (taskPriority <= 3) {
             setPriorityColor('violet')
         }
-        else if (priority <= 6) {
+        else if (taskPriority <= 6) {
             setPriorityColor('yellow')
         }
         else {
             setPriorityColor('red')
         }
-    }, [priority])
+    }, [taskPriority])
 
     return (
         <div className="input-range-wrapper">
-            <Input id="range" changeValueFun={(e) => setPriority((e.target.value))} min="1" max="10" inputValue={priority} type='range'></Input>
-            <label htmlFor='range' className={["range-label main-text", `range-label-${priotiryColor}`].join(' ')}>{priority}</label>
+            <Input id="range" changeValueFun={(e) => setTaskPriority((e.target.value))} min="1" max="10" inputValue={taskPriority} type='range'></Input>
+            <label htmlFor='range' className={["range-label main-text", `range-label-${priorityColor}`].join(' ')}>{taskPriority}</label>
         </div>
     )
 }

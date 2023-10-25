@@ -2,21 +2,34 @@ import { useState } from 'react'
 import '../../App.css'
 import  './CategoryBox.css'
 
-function CategoryBox() {
+function CategoryBox({taskCategory, setTaskCategory, ...props}) {
     const [categoryBoxActive, setCategoryBoxActive] = useState(false)
-    const [category, setCategory] = useState('')
+
+    let title = ''
+    let list = []
+    if(props.type === 'categories'){
+        title = 'Выберите категорию'
+        list = ['Воспитательная работа', 'Профессиональная работа', 'Проектная работа', 'Домашняя работа', 'Кошачья забота']
+    }
+    else{
+        title = 'Выберите приоритет'
+        list = ['Срочная задача', 'Рядовая задача', 'Необязательная задача']
+    }
 
     const changeCategory = (c) => {
-        setCategory(c);
+        setTaskCategory(c);
         setCategoryBoxActive(false);
     }
 
     return (
-        <div className={['category-choose-box input', categoryBoxActive ? 'category-choose-box-active' : ''].join(' ')}>
-            <div className="main-text" onClick={() => setCategoryBoxActive(!categoryBoxActive)}>{category ? category : 'Выберите категорию'}</div>
+        <div onClick={() => setCategoryBoxActive(!categoryBoxActive)} className={['category-choose-box input', categoryBoxActive ? 'category-choose-box-active' : ''].join(' ')}>
+            <div className="main-text" >{taskCategory ? taskCategory : title}</div>
             <ul>
-                <li className='category main-text' onClick={() => { changeCategory('География') }}>География</li>
-                <li className='category main-text' onClick={() => { changeCategory('Котики') }}>Котики</li>
+                {
+                    list.map(l =>
+                        <li key={l} className='category main-text' onClick={() => { changeCategory(l) }}>{l}</li>
+                        )
+                }
             </ul>
         </div>
     )

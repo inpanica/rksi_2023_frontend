@@ -34,33 +34,33 @@ export const registration = async (email, name, password, isAdmin) => {
     return response
 }
 
-export const sendEmail = async (email) =>{
+export const sendEmail = async (email) => {
     const response = await axios.post(config.url + '/auth/register', {
         email: email
     }, {
         headers: {
-            'Content-Type': 'application/vnd.api+json'
+            'Content-Type': 'application/json'
         }
     })
     return response
 }
 
 export const authorization = async (email, password) => {
-
     const formData = new FormData();
-    formData.set('username', email);
-    formData.set('password', password);
-
+    formData.append('username', email)
+    formData.append('password', password)
     const response = await axios.post(
         config.url + '/auth/jwt/login',
         formData,
         {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/x-www-form-unreloaded'
             },
         },
     )
-    localStorage.setItem('access', response.data.access_token)
+    if(response.status === 200){
+        localStorage.setItem('access', response.data.access_token)
+    }
     return response
 }
 
@@ -77,5 +77,27 @@ export const getUser = async () => {
     }
     catch {
         localStorage.removeItem('access')
+        return 'retry'
     }
+}
+
+export const getAllUsers = async () => {
+
+    const response = await axios.get(
+        config.url + '/user/all', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    return response
+
+}
+
+export const sendTask = async (task) => {
+    const response = await axios.post(config.url + '/task/add', task, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
 }

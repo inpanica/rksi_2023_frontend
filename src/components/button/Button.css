@@ -61,3 +61,10 @@
     background: #c28063;
 }
 
+.button-disabled{
+    background-color: #4c507c;
+}
+
+.button-disabled:hover{
+    background-color: #4c507c;
+}

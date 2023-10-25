@@ -13,3 +13,53 @@
     display: flex;
     align-items: center;
 }
+
+.user{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.user:hover {
+    background-color: #27293F;
+}
+
+.user-username{
+    min-width: 200px;
+}
+
+.users-choose-buttons > :not(:last-child){
+    margin-right: 20px;
+}
+
+.users-choose{
+    width: 100%;
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #1B1D2C;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.accepted-user{
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.accepted-users{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #1B1D2C;
+}
+
+@media screen and (max-width: 550px){
+    .user-username{
+        min-width: 100px;
+    }
+}
