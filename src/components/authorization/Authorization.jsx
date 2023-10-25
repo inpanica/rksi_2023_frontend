@@ -13,7 +13,7 @@ function Authorization({setUser, ...props}) {
     const auth = async () => {
         if (!buttonEnabled) {
             const requiredList = [!email ? 'почта\n' : '',
-            !password[0] ? 'пароль\n' : ''].join('')
+            !password ? 'пароль\n' : ''].join('')
             alert('Следующие поля должны быть заполнены: \n' + requiredList)
         }
         else {

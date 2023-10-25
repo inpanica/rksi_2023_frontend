@@ -15,6 +15,12 @@ function Registration() {
     const [buttonEnabled, setButtonEnabled] = useState(false)
 
     const sendForm = async () => {
+        if (!buttonEnabled){
+            const requiredList = [!email ? 'почта\n' : '',
+            !password ? 'пароль\n' : '',
+            ].join('')
+            alert('Следующие поля должны быть заполнены: \n' + requiredList)
+        }
         const response = await registration(email, name, password, isAdmin);
         if (response.status === 201) {
             setName('');
@@ -44,7 +50,7 @@ function Registration() {
                     <label className='main-text' htmlFor="admin-checkbox">Сделать администратором</label>
                     <Input changeValueFun={(e) => setIsAdmin(e.target.checked)} inputValue={isAdmin} type="checkbox" id="admin-checkbox"></Input>
                 </div>
-                <Button disabled={!buttonEnabled} onClick={sendForm} className="button-red">Создать</Button>
+                <Button onClick={sendForm} className={["button-red", !buttonEnabled ? 'button-disabled' : ''].join(' ')}>Создать</Button>
             </section>
         </div>
     )

@@ -46,7 +46,7 @@ body {
 
 .ctn {
     max-width: 840px;
-    padding: 100px 20px;
+    padding: 0px 20px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -117,14 +117,6 @@ section {
     align-items: center;
 }
 
-.fullsceen-window{
-    display: none;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    background: rgba(27, 29, 44, 0.80)
-}
-
-.fullsceen-window-active{
-    display: block;
+.footer{
+    margin-top: 100px;
 }

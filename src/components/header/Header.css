@@ -1,0 +1,32 @@
+.header-ctn{
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 100px;
+}
+
+.header{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 800px){
+    .header-link{
+        width: 100%;
+    }
+}
+
+.header-link{
+    background-color: #24263A;
+    padding: 20px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.header-link:hover{
+    background-color: #31344F;
+    
+}

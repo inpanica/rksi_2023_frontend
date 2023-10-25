@@ -1,0 +1,15 @@
+.fullsceen-window{
+    top: 0;
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: rgba(27, 29, 44, 0.9);
+    overflow-y: scroll;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.fullsceen-window-active{
+    display: block;
+}
