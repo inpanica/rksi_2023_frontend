@@ -1,0 +1,15 @@
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-section> :not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.input-range-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}

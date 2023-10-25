@@ -1,0 +1,20 @@
+.category-choose-box {
+    cursor: pointer;
+}
+
+.category-choose-box .category {
+    display: none;
+}
+
+.category-choose-box-active .category {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.category:hover {
+    background-color: #27293F;
+}
+
+.category-choose-box-active> :first-child {
+    margin-bottom: 20px;
+}

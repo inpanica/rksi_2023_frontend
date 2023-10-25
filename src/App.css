@@ -1,0 +1,130 @@
+/*---------------------------Reset-----------------------------*/
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: Inter, sans-serif;
+    color: #fff;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*------------------------------------------Root-------------------------------*/
+
+body {
+    background-color: #1B1D2C;
+}
+
+.ctn {
+    max-width: 840px;
+    padding: 100px 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.block-section {
+    background-color: #24263A;
+    padding: 40px 20px;
+    border-radius: 10px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.main-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.h2-title {
+    font-size: 24;
+    font-weight: 700;
+}
+
+.align-center {
+    text-align: center;
+}
+
+@media screen and (max-width: 750px) {
+    .h2-title {
+        font-size: 20;
+    }
+
+    .main-text {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .h2-title {
+        font-size: 16;
+    }
+
+    .main-text {
+        font-size: 12px;
+    }
+}
+
+/*-----------------------------------Main--------------------------*/
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-section> :not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.input-range-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.fullsceen-window{
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: rgba(27, 29, 44, 0.80)
+}
+
+.fullsceen-window-active{
+    display: block;
+}

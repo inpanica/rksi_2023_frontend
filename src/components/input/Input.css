@@ -1,0 +1,31 @@
+@import url(../../App.css);
+
+.input {
+    background-color: #1B1D2C;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+    transition: .1s ease-out all;
+    outline: none;
+    border: 1px solid #1B1D2C;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.input:focus {
+    border: 1px solid #7279bb;
+}
+
+@media screen and (max-width: 750px){
+    .input {
+        font-size: 16px;
+    }
+}
+
+.input-textarea{
+    height: 100px;
+    text-justify: auto;
+    resize: none;
+}

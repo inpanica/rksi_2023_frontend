@@ -1,0 +1,63 @@
+.button-text {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.button {
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    transition: .1s all ease-out;
+}
+
+@media screen and (max-width: 750px) {
+    .button {
+        padding: 8px 16px;
+    }
+
+    .button-text {
+        font-size: 16px;
+    }
+}
+
+.button-red {
+    background: #C44A6F;
+}
+
+.button-red:hover {
+    background: #e25580;
+}
+
+.button-red:active {
+    background: #a33d5c;
+}
+
+.button-violet {
+    background: #60669F;
+}
+
+.button-violet:hover {
+    background: #7279bb;
+}
+
+.button-violet:active {
+    background: #4c507c;
+}
+
+.button-yellow {
+    background: #E09373;
+}
+
+.button-yellow:hover {
+    background: #faa581;
+}
+
+.button-yellow:active {
+    background: #c28063;
+}
+

@@ -1,0 +1,16 @@
+.input-with-label{
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.input-with-label input{
+    width: auto;
+    margin-left: 20px;
+}
+
+.input-with-label .main-text{
+    margin: 0;
+}
