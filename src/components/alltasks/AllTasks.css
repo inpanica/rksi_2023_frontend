@@ -32,7 +32,7 @@
     top: 0;
     padding: 100px 20px;
     position: fixed;
-    transform: translateX(-250px);
+    transform: translateX(-300px);
     transition: .5s ease-out all;
 }
 
@@ -47,6 +47,7 @@
     display: none;
     margin-left: 10px;
     margin-bottom: 30px;
+    transform: translateX(170px);
 }
 
 .all-users-user:hover {
@@ -79,6 +80,10 @@
     .all-users{
         width: 100%;
         transform: translateX(-500px);
+    }
+
+    .all-users-close-btn{
+        transform: translateX(0);
     }
 
     .all-users-active{
