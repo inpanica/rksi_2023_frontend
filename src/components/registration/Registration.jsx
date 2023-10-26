@@ -3,7 +3,7 @@ import '../../App.css'
 import './Registration.css'
 import Button from '../button/Button.jsx'
 import Input from '../input/Input.jsx'
-import { registration, sendEmail} from '../../actions.js'
+import { registration, sendEmail, deleteUser} from '../../actions.js'
 
 function Registration() {
 
@@ -12,7 +12,10 @@ function Registration() {
     const [password, setPassword] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
 
+    const [deleteEmail, setDeleteEmail] = useState('')
+
     const [buttonEnabled, setButtonEnabled] = useState(false)
+    const [delButtonEnabled, setDelButtonEnabled] = useState(false)
 
     const sendForm = async () => {
         if (!buttonEnabled){
@@ -27,6 +30,7 @@ function Registration() {
             setEmail('');
             setPassword('');
             // const responseEmail = sendEmail(response.data.email);
+            // console.log(responseEmail);
         }
     }
 
@@ -39,9 +43,23 @@ function Registration() {
         }
     }, [name, email, password])
 
+    useEffect(() => {
+        if(!deleteEmail || !deleteEmail.includes('@')){
+            setDelButtonEnabled(false)
+        }
+        else{
+            setDelButtonEnabled(true)
+        }
+    }, [deleteEmail])
+
+    const deleteByEmail = async () => {
+        const resposnse = await deleteUser(deleteEmail);
+        setDeleteEmail('');
+    }
+
     return (
         <div className="ctn">
-            <section className='block-section form-section'>
+            <section className='block-section form-section admin-section'>
                 <h2 className="h2-title align-center">Добавить пользователя</h2>
                 <Input changeValueFun={(e) => setName(e.target.value)} inputValue={name} placeholder="Имя"></Input>
                 <Input changeValueFun={(e) => setEmail(e.target.value)} inputValue={email} placeholder="Почта"></Input>
@@ -51,6 +69,11 @@ function Registration() {
                     <Input changeValueFun={(e) => setIsAdmin(e.target.checked)} inputValue={isAdmin} type="checkbox" id="admin-checkbox"></Input>
                 </div>
                 <Button onClick={sendForm} className={["button-red", !buttonEnabled ? 'button-disabled' : ''].join(' ')}>Создать</Button>
+            </section>
+            <section className='block-section form-section'>
+                <h2 className="h2-title align-center">Удалить пользователя</h2>
+                <Input changeValueFun={(e) => setDeleteEmail(e.target.value)} inputValue={deleteEmail} placeholder="Почта"></Input>
+                <Button onClick={deleteByEmail} className={["button-red", !delButtonEnabled ? 'button-disabled' : ''].join(' ')}>Удалить</Button>
             </section>
         </div>
     )

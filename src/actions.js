@@ -37,8 +37,8 @@ export const registration = async (email, name, password, isAdmin) => {
 }
 
 export const sendEmail = async (email) => {
-    const response = await axios.post(config.url + '/auth/register', {
-        email: email
+    const response = await axios.post(config.url + '/deferred_tasks/mail/send', {
+        email: [email]
     }, {
         headers: {
             'Content-Type': 'application/json'
@@ -81,6 +81,17 @@ export const getUser = async () => {
         localStorage.removeItem('access')
         return 'retry'
     }
+}
+
+export const deleteUser = async (email) => {
+    const response = await axios.delete(
+        config.url + '/user/delete/' + email, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }
+    )
+    return response
 }
 
 export const getAllUsers = async () => {
