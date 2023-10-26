@@ -23,7 +23,7 @@ function Header({ user, ...props }) {
                     </>
                 }
                 {user.isAdmin &&
-                    <Link to='/add-user' className="main-text header-link">Добавить пользователей</Link>
+                    <Link to='/add-user' className="main-text header-link">Пользователи</Link>
                 }
             </header>
         </div>

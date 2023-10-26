@@ -7,7 +7,7 @@ import CategoryBox from '../categoryBox/CategoryBox.jsx'
 import Range from '../range/Range.jsx'
 import { getAllUsers } from '../../actions.js'
 import FullScreenWindow from '../fullscreenwindow/FullScreenWindow.jsx'
-import { sendTask } from '../../actions.js'
+import { sendTask, sendFile } from '../../actions.js'
 
 function CreateTask() {
     const [taskTitle, setTaskTitle] = useState('')
@@ -16,12 +16,16 @@ function CreateTask() {
     const [taskCategory, setTaskCategory] = useState('')
     const [taskPriority, setTaskPriority] = useState('')
     const [taskWeight, setTaskWeight] = useState(1)
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
 
     const [fullScreenWindowActive, setFullScreenWindowActive] = useState(false);
     const [acceptedUsers, setAcceptedUsers] = useState([])
     const [users, setUsers] = useState([])
 
     const [buttonEnabled, setButtonEnabled] = useState(false);
+
+    const [files, setFiles] = useState([])
 
     const assignUsers = async () => {
         const response = await getAllUsers();
@@ -40,13 +44,28 @@ function CreateTask() {
         setFullScreenWindowActive(true);
     }
 
+    const sendFiles = async (id) => {
+        const idSt = id.join(' ')
+        const formData = new FormData();
+        let filesArr = files[0]
+
+        formData.append('file', filesArr)
+        const response = await sendFile(idSt, formData);
+        if (response.status === 200) {
+            setFiles([])
+        }
+        return response
+    }
+
     const uploadTask = async () => {
         if (!buttonEnabled) {
             const requiredList = [!taskTitle ? 'название\n' : '',
             !taskDescription ? 'описание\n' : '',
             !taskCategory ? 'категория\n' : '',
             !taskPriority ? 'приоритет\n' : '',
-            !acceptedUsers[0] ? 'исполнители\n' : ''].join('')
+            !acceptedUsers[0] ? 'исполнители\n' : '',
+            !startTime ? 'дата начала\n' : '',
+            !endTime ? 'дата конца\n' : ''].join('')
             alert('Следующие поля должны быть заполнены: \n' + requiredList)
         }
         else {
@@ -58,10 +77,10 @@ function CreateTask() {
                 "description": taskDescription,
                 "more_info": taskComment,
                 "files": 0,
-                "begin": "2023-10-25T15:55:12.949",
-                "end": "2023-10-25T15:55:12.949",
-                "when_end": "",
-                "status": "",
+                "begin": startTime,
+                "end": endTime,
+                "when_end": ".",
+                "status": "not_started",
                 "priority": taskPriority,
                 "weight": taskWeight,
                 "category": taskCategory,
@@ -69,24 +88,30 @@ function CreateTask() {
             }
             const response = await sendTask(task)
             if (response.status === 200) {
-                setTaskTitle('')
-                setTaskDecrtiption('')
-                setTaskComment('')
-                setAcceptedUsers([])
-                setTaskCategory('')
-                setTaskPriority(1)
+                const r = await sendFiles(response.data)
+                if (r.status === 200) {
+                    setEndTime('')
+                    setStartTime('')
+                    setTaskTitle('')
+                    setTaskDecrtiption('')
+                    setTaskWeight(1)
+                    setTaskComment('')
+                    setAcceptedUsers([])
+                    setTaskCategory('')
+                    setTaskPriority('')
+                }
             }
         }
     }
 
     useEffect(() => {
-        if (!taskTitle || !taskDescription || !taskCategory || !acceptedUsers[0] || !taskPriority) {
+        if (!taskTitle || !taskDescription || !taskCategory || !acceptedUsers[0] || !taskPriority || !startTime || !endTime) {
             setButtonEnabled(false);
         }
         else {
             setButtonEnabled(true);
         }
-    }, [taskTitle, taskDescription, taskCategory, acceptedUsers, taskPriority])
+    }, [taskTitle, taskDescription, taskCategory, acceptedUsers, taskPriority, endTime, startTime])
 
     return (
         <>
@@ -112,7 +137,12 @@ function CreateTask() {
                                     </div>)
                             }
                         </div>}
-                    <Input changeValueFun={(e) => console.log(e)} type="file" multiple />
+                    <h3 className="h3-title align-center">Дата начала</h3>
+                    <Input changeValueFun={(e) => setStartTime(e.target.value)} inputValue={startTime} type='date'></Input>
+                    <h3 className="h3-title align-center">Дата конца</h3>
+                    <Input changeValueFun={(e) => setEndTime(e.target.value)} inputValue={endTime} type='date'></Input>
+                    <h3 className="h3-title align-center">Прикрепить файлы</h3>
+                    <Input changeValueFun={(e) => setFiles(e.target.files)} type="file" files={files} />
                     <Button onClick={uploadTask} className={["button-red", !buttonEnabled ? 'button-disabled' : ''].join(' ')}>Создать</Button>
                 </section>
             </div>

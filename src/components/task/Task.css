@@ -1,0 +1,74 @@
+.user-task-weight-red{
+    background-color: #D35077;
+}
+
+.user-task-weight-yellow{
+    background-color: #E09373;
+}
+
+.user-task-weight-violet{
+    background-color: #60669F;
+}
+
+.user-task{
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #24263A;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-task:hover{
+    background-color: #31344F;
+}
+
+.user-task-name{
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.user-task-description{
+    margin-bottom: 20px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.user-task-status{
+    margin-bottom: 10px;
+}
+
+.user-task-priority{
+    margin-bottom: 10px;
+    color: #a3a3a3;
+}
+
+.user-task-weight{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-top: -40px;
+}
+
+.user-task-wrapper{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 550px){
+    .user-task-wrapper{
+        flex-direction: column;
+    }
+    .user-task{
+        width: 100%;
+    }
+}

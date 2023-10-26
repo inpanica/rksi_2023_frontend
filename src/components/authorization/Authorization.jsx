@@ -44,7 +44,7 @@ function Authorization({setUser, ...props}) {
             <section className='block-section form-section'>
                 <h2 className="h2-title align-center">Вход</h2>
                 <Input changeValueFun={(e) => setEmail(e.target.value)} inputValue={email} placeholder="Почта"></Input>
-                <Input changeValueFun={(e) => setPassword(e.target.value)} inputValue={password} placeholder="Пароль"></Input>
+                <Input changeValueFun={(e) => setPassword(e.target.value)} inputValue={password} placeholder="Пароль" type="password"></Input>
                 <Button onClick={auth} className={["button-red", !buttonEnabled ? 'button-disabled' : ''].join(' ')}>Войти</Button>
             </section>
         </div>

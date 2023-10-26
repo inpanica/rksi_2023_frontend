@@ -1,4 +1,4 @@
-.logout-btn{
+.logout-btn {
     display: block;
     position: relative;
     margin-top: 20px;
@@ -9,8 +9,124 @@
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0);
     transition: .1s all;
+    z-index: 0;
 }
-.logout-btn:hover{
+
+.logout-btn:hover {
     background-color: #31344F;
     border: 1px solid #D35077;
+}
+
+.reload-button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+/*--------------------------------Task---------------------*/
+
+.fullscreen-task {
+    top: 0;
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: rgba(27, 29, 44, 0.9);
+    overflow-y: scroll;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    z-index: 100;
+}
+
+.fullsceen-task-active {
+    display: block;
+}
+
+.fullscreen-task-buttons{
+    margin-top: 20px;
+}
+
+.fullscreen-task-buttons > :not(:last-child){
+    margin-right: 20px;
+}
+
+.fullscreen-task-name{
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.fullscreen-task-description{
+    margin-bottom: 20px;
+    font-weight: 400;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.fullscreen-task-comments{
+    margin-bottom: 20px;
+    font-weight: 400;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+.fullscreen-task-priority{
+    color: #a9a5b3;
+    margin-bottom: 10px;
+}
+
+.fullscreen-task-category{
+    margin-bottom: 10px;
+}
+
+.fullscreen-task-weight{
+    margin-bottom: 10px;
+}
+
+.fullscreen-task-weight{
+    display: flex;
+    align-items: center;
+    height: auto;
+}
+
+.fullscreen-task-weight-decorate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    margin-left: 10px;
+}
+
+.fullscreen-task-weight-decorate-red{
+    background-color: #D35077;
+}
+
+.fullscreen-task-weight-decorate-yellow{
+    background-color: #E09373;
+}
+
+.fullscreen-task-weight-decorate-violet{
+    background-color: #60669F;
+}
+
+.fullscreen-task-file{
+    cursor: pointer;
+    padding: 10px;
+    background-color: #E09373;
+    width: min-content;
+    border-radius: 5px;
+}
+
+.fullscreen-task-file:hover{
+    background-color: #ffac88;
+}
+
+.fullscreen-task-time{
+    color: #a9a5b3;
+    margin-bottom: 20px;
+}
+
+.reload-button{
+    margin-bottom: 20px;
 }

@@ -1,11 +1,12 @@
 import axios from "axios";
 import { config } from "./config.js";
 
-export const sendFile = async (formData) => {
-    const response = await axios.post(config.url + '/files/add', formData,
+export const sendFile = async (id, formData) => {
+    const response = await axios.post(config.url + `/files/add?task_id=${id}`, formData,
         {
             headers: {
-                'Content-Type': 'multipart/formdata'
+                'Content-Type': 'multipart/formdata',
+                'Accept': 'application/json'
             }
         })
     return response
@@ -58,7 +59,7 @@ export const authorization = async (email, password) => {
             },
         },
     )
-    if(response.status === 200){
+    if (response.status === 200) {
         localStorage.setItem('access', response.data.access_token)
     }
     return response
@@ -95,6 +96,27 @@ export const getAllUsers = async () => {
 
 export const sendTask = async (task) => {
     const response = await axios.post(config.url + '/task/add', task, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
+}
+
+export const changeTask = async (changed) => {
+    const changedSt = Object.keys(changed).map(a => {
+        return String(a) + '=' + String(changed[a])
+    }).join('&')
+    const response = await axios.patch(config.url + `/task/patch?${changedSt}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
+}
+
+export const getTasks = async (email) => {
+    const response = await axios.get(config.url + `/task/me?email=${email}`, {
         headers: {
             'Content-Type': 'application/json'
         }
