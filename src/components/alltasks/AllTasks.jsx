@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../../App.css'
 import './AllTasks.css'
-import { changeTask, getAllTasks, deleteTask, getAllUsers, getTasks } from '../../actions.js'
+import { changeTask, getAllTasks, deleteTask, getAllUsers, getTasks, getStatistic } from '../../actions.js'
 import Button from '../button/Button.jsx'
 import Input from '../input/Input.jsx'
 import Task from '../task/Task.jsx'
@@ -23,12 +23,17 @@ function AllTasks({ user, setUser, ...props }) {
     const [sortType, setSortType] = useState('')
     const [users, setUsers] = useState([])
     const [allUsersMenuActive, setAllUsersMenuActive] = useState(true)
+    const [stats, setStats] = useState({})
 
     const getAllUsersTasks = async () => {
         const response = await getAllTasks()
         if (response.status === 200) {
             setTasks(response.data.data)
             setFiles(response.data.files)
+        }
+        const responsStats = await getStatistic()
+        if(responsStats.status === 200){
+            setStats(responsStats.data);
         }
     }
 
@@ -134,10 +139,8 @@ function AllTasks({ user, setUser, ...props }) {
             return t2.weight - t1.weight
         })
     }
-    else if (sortType === 'По дедлайну') {
-        sortedTasks = sortedTasks.sort((t1, t2) => {
-            return t2.end - t1.end
-        })
+    else{
+        sortedTasks = sortedTasks
     }
 
     const deleteCurrentTask = async () => {
@@ -220,8 +223,19 @@ function AllTasks({ user, setUser, ...props }) {
                 </div>
             </div>
             <div className="ctn ">
-                <h2 className="h2-title align-center all-tasks-title">Все задачи</h2>
-                <Button onClick={getAllUsersTasks} className='button-violet reload-button'>Обновить список задач</Button>
+                {
+                    stats && <div className='statistic block-section'>
+                        <div className="stats-status">
+                            <p className="stats-status-line">{'Всего задач: ' + stats.count}</p>
+                            <p className="stats-status-line">{'Завершенных: ' + stats.success}</p>
+                            <p className="stats-status-line">{'Не начатых: ' + stats.not_started}</p>
+                            <p className="stats-status-line">{'Выполняются: ' + stats.in_progress}</p>
+                            <p className="stats-status-line">{'Средний вес задач: ' + stats.average_weight}</p>
+                            <p className="stats-status-line">{'Самая частая категория: ' + stats.most_common_category}</p>
+                        </div>
+                    </div>
+                }
+                {/* <Button onClick={getAllUsersTasks} className='button-violet reload-button'>Обновить список задач</Button> */}
                 <div className="sort-block block-section">
                     <Input className='search-input' changeValueFun={(e) => setSearchQuery(e.target.value)} inputValue={searchQuery} placeholder='Поиск...' />
                     <CategoryBox taskCategory={sortType} setTaskCategory={setSortType} type={'sort'} />

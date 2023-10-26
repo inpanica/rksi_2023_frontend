@@ -36,9 +36,10 @@ export const registration = async (email, name, password, isAdmin) => {
     return response
 }
 
-export const sendEmail = async (email) => {
+export const sendEmail = async (email, password) => {
     const response = await axios.post(config.url + '/deferred_tasks/mail/send', {
-        email: [email]
+        email: email,
+        password: password
     }, {
         headers: {
             'Content-Type': 'application/json'
@@ -151,3 +152,11 @@ export const deleteTask = async (id) => {
     return response
 }
 
+export const getStatistic = async () => {
+    const response = await axios.post(config.url + `/deferred_tasks/report`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
+}

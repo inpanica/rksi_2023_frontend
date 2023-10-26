@@ -26,8 +26,13 @@
 .reg-users-user{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .reg-users-title{
     margin-bottom: 20px;
+}
+
+.warning{
+    width: 200px;
 }

@@ -5,7 +5,7 @@ import Button from '../button/Button.jsx'
 import Input from '../input/Input.jsx'
 import { registration, sendEmail, deleteUser, getAllUsers } from '../../actions.js'
 
-function Registration({user, ...props}) {
+function Registration({ user, ...props }) {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -32,7 +32,7 @@ function Registration({user, ...props}) {
             setEmail('');
             setPassword('');
             getUsers();
-            // const responseEmail = await sendEmail(response.data.email);
+            // const responseEmail = await sendEmail(response.data.email, password);
         }
     }
 
@@ -105,7 +105,7 @@ function Registration({user, ...props}) {
             <h2 className="h2-title align-center reg-users-title">Все пользователи</h2>
             <div>
                 {
-                    
+
                     allUsers.map(u =>
                         <div onClick={() => changeCurrentUser(u)} key={u.email} className={['all-users-user reg-users-user', u.email === deleteEmail ? 'all-users-user-active' : ''].join(' ')}>
                             <div className="reg-user-info">
@@ -118,6 +118,10 @@ function Registration({user, ...props}) {
                             </div>
                             {
                                 (u.email === deleteEmail && allUsers.length > 1 && user.email !== u.email) && <Button onClick={deleteByEmail} className={["button-red", !delButtonEnabled ? 'button-disabled' : ''].join(' ')}>Удалить</Button>
+
+                            }
+                            {
+                                (u.email === user.email && u.email === deleteEmail) && <p className='main-text warning'>Вы не можете удалить свой аккаунт</p>
                             }
                         </div>
                     )

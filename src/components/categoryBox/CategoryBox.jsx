@@ -17,7 +17,7 @@ function CategoryBox({taskCategory, setTaskCategory, ...props}) {
     }
     else if(props.type === 'sort'){
         title='Сортировать'
-        list = ['По весу', 'По дедлайну']
+        list = ['По весу', 'Не выбрано']
     }
     else{
         title = 'Выберите приоритет'

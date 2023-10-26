@@ -97,3 +97,11 @@
     max-height: 80vh;
     overflow-y: scroll;
 }
+
+.stats-status-line{
+    margin-bottom: 10px;
+}
+
+.statistic{
+    margin-bottom: 20px;
+}
