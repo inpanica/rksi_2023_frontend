@@ -51,9 +51,6 @@ function CreateTask() {
 
         formData.append('file', filesArr)
         const response = await sendFile(idSt, formData);
-        if (response.status === 200) {
-            setFiles([])
-        }
         return response
     }
 
@@ -76,7 +73,6 @@ function CreateTask() {
                 "name": taskTitle,
                 "description": taskDescription,
                 "more_info": taskComment,
-                "files": 0,
                 "begin": startTime,
                 "end": endTime,
                 "when_end": ".",

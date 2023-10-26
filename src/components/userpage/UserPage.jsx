@@ -69,7 +69,6 @@ function UserPage({ user, setUser, ...props }) {
             "priority": currentTask.priority,
             "end": currentTask.end,
             "begin": currentTask.begin,
-            "files": currentTask.files,
             "more_info": currentTask.more_info,
             "description": currentTask.description,
             "name": currentTask.name,

@@ -43,6 +43,10 @@ function FullScreenWindow({setFullScreenWindowActive, fullScreenWindowActive, us
         return u.name.toLowerCase().includes(searchQuery.toLowerCase()) || u.email.toLowerCase().includes(searchQuery.toLowerCase())
     })
 
+    useEffect(() => {
+        setChoosenUsers(acceptedUsers);
+    },[acceptedUsers])
+
     return (
         <>
             <div className={["fullsceen-window", fullScreenWindowActive ? 'fullsceen-window-active' : ''].join(' ')}>

@@ -24,8 +24,8 @@ function AllTasks({ user, setUser, ...props }) {
     const getTasks = async () => {
         const response = await getAllTasks()
         if (response.status === 200) {
-            setTasks(response.data)
-            // setFiles(response.data.files)
+            setTasks(response.data.data)
+            setFiles(response.data.files)
         }
     }
 
@@ -65,7 +65,6 @@ function AllTasks({ user, setUser, ...props }) {
             "priority": currentTaskChanged.priority,
             "end": currentTaskChanged.end,
             "begin": currentTaskChanged.begin,
-            "files": currentTaskChanged.files,
             "more_info": currentTaskChanged.more_info,
             "description": currentTaskChanged.description,
             "name": currentTaskChanged.name,
@@ -124,7 +123,10 @@ function AllTasks({ user, setUser, ...props }) {
                             <h3 className="h3-title align-center">Дата начала</h3>
                             <Input changeValueFun={(e) => setCurrentTaskChanged({...currentTaskChanged, 'begin': e.target.value})} inputValue={currentTaskChanged.begin} type='date'></Input>
                             <h3 className="h3-title align-center">Дата конца</h3>
+                            <CategoryBox type='status' taskCategory={currentStatus} setTaskCategory={setCurrentStatus} status={statuses[currentTask.status] + ' ' + (currentTask.status === 'success' ? currentTask.when_end : '')} />
                             <Input changeValueFun={(e) => setCurrentTaskChanged({...currentTaskChanged, 'end': e.target.value})} inputValue={currentTaskChanged.end} type='date'></Input>
+                            {files[currentTask.id] && <p className="fullscreen-task-name">Сопутствующие файлы:</p>}
+                            {files[currentTask.id].map(f => <div key={f} className='fullscreen-task-file' onClick={() => window.open(config.url + '/' + f)}>{f.replace('static/', '')}</div>)}
                         </div>
                         <div className="fullscreen-task-buttons">
                             <Button onClick={() => setCurrentTask({})} className='button-red'>Назад</Button>
