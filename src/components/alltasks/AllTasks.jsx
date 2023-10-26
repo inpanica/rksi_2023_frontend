@@ -206,7 +206,7 @@ function AllTasks({ user, setUser, ...props }) {
                 <div className="all-useres-users">
                     {
                         users.map(u =>
-                            <div onClick={() => changeCurrentUser(u)} key={u.email} className={['all-users-user', currentUser.name === u.name ? 'all-users-user-active' : ''].join(' ')}>
+                            <div onClick={() => changeCurrentUser(u)} key={u.email} className={['all-users-user', currentUser.email === u.email ? 'all-users-user-active' : ''].join(' ')}>
                                 <div className="all-users-user-name">
                                     {u.name}
                                 </div>

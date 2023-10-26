@@ -73,7 +73,9 @@
     .all-users-close-btn{
         display: block;
     }
-    
+    .all-users-user:hover {
+        background-color: initial;
+    }
 }
 
 @media screen and (max-width:400px){
