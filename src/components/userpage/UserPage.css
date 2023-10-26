@@ -116,6 +116,7 @@
     background-color: #E09373;
     width: min-content;
     border-radius: 5px;
+    text-wrap: wrap;
 }
 
 .fullscreen-task-file:hover{
