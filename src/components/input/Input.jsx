@@ -9,7 +9,7 @@ function Input({ changeValueFun, inputValue, ...props }) {
     return (
         <>
             {(props.type !== 'textarea') ?
-                <input {...props} type={props.type} className={["input", "input-" + props.type].join(' ')} placeholder={props.placeholder}
+                <input {...props} type={props.type} className={["input", "input-" + props.type, props.className].join(' ')} placeholder={props.placeholder}
                     value={inputValue}
                     id={props.id}
                     onChange={changeHandle} />

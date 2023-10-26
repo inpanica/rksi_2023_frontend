@@ -7,6 +7,7 @@ import UserPage from './components/userpage/UserPage.jsx'
 import Header from './components/Header/Header.jsx'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { getUser } from './actions.js'
+import AllTasks from './components/alltasks/AllTasks.jsx'
 
 function App() {
 
@@ -27,13 +28,18 @@ function App() {
     return (
         <>
             <BrowserRouter>
-            <Header user={user}/>
+                <Header user={user} />
                 {
-                    (user.name !=='') &&
+                    (user.name !== '') &&
                     <Routes>
-                        {user.isAdmin && <Route path='/add-user' element={<Registration />} />}
+                        {user.isAdmin &&
+                            <>
+                                <Route path='/all-tasks' element={<AllTasks />} />
+                                <Route path='/add-user' element={<Registration />} />
+                            </>
+                        }
                         <Route path='/add-task' element={<CreateTask />} />
-                        <Route path='/me' exact element={<UserPage user={user} setUser={setUser}/>} />
+                        <Route path='/me' exact element={<UserPage user={user} setUser={setUser} />} />
                         <Route path='/*' element={<Navigate to='/me' />} />
                     </Routes>
                 }
@@ -44,7 +50,7 @@ function App() {
                         <Route path='/*' element={<Navigate to='/login' />} />
                     </Routes>
                 }
-            <footer className='footer'></footer>
+                <footer className='footer'></footer>
             </BrowserRouter>
         </>
     )

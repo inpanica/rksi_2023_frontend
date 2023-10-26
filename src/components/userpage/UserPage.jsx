@@ -4,6 +4,7 @@ import './UserPage.css'
 import { Link } from 'react-router-dom'
 import { getTasks, changeTask } from '../../actions.js'
 import Button from '../button/Button.jsx'
+import Input from '../input/Input.jsx'
 import Task from '../task/Task.jsx'
 import CategoryBox from '../categoryBox/CategoryBox.jsx'
 import { config } from '../../config.js'
@@ -14,6 +15,8 @@ function UserPage({ user, setUser, ...props }) {
     const [tasks, setTasks] = useState(Array)
     const [currentTask, setCurrentTask] = useState({})
     const [currentStatus, setCurrentStatus] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
+    const [sortType, setSortType] = useState('')
 
     const logout = () => {
         localStorage.clear()
@@ -33,7 +36,7 @@ function UserPage({ user, setUser, ...props }) {
     const date = new Date();
     let day = date.getDate();
     day = String(day).split('').length === 2 ? day : '0' + day
-    let month = date.getMonth(); 
+    let month = date.getMonth();
     month = String(month).split('').length === 2 ? month : '0' + month
     let year = date.getFullYear();
     const today = `${year}-${month}-${day}`
@@ -60,13 +63,43 @@ function UserPage({ user, setUser, ...props }) {
         const st = Object.entries(statuses).filter((a) => {
             return a[1] === currentStatus
         })[0][0]
-        const changed = { task_id: currentTask.id, new_status: st, when_end: (st === 'success' ? today : '')}
+        const changed = {
+            "category": currentTask.category,
+            "weight": currentTask.weight,
+            "priority": currentTask.priority,
+            "end": currentTask.end,
+            "begin": currentTask.begin,
+            "files": currentTask.files,
+            "more_info": currentTask.more_info,
+            "description": currentTask.description,
+            "name": currentTask.name,
+            "task_id": currentTask.id,
+            "status": st,
+            "when_end": (st === 'success' ? today : '')
+        }
         const response = await changeTask(changed);
-        if(response.status === 200){
+        if (response.status === 200) {
             setCurrentStatus('');
             setCurrentTask({})
             getMyTasks();
         }
+    }
+
+    const filtredTasks = tasks.filter(t => {
+        return t.name.toLowerCase().includes(searchQuery.toLowerCase()) || t.description.toLowerCase().includes(searchQuery.toLowerCase())
+    })
+
+    let sortedTasks = filtredTasks
+
+    if (sortType === 'По весу') {
+        sortedTasks = sortedTasks.sort((t1, t2) => {
+            return t2.weight - t1.weight
+        })
+    }
+    else if (sortType === 'По дедлайну') {
+        sortedTasks = sortedTasks.sort((t1, t2) => {
+            return t2.end - t1.end
+        })
     }
 
     return (
@@ -85,7 +118,7 @@ function UserPage({ user, setUser, ...props }) {
                             <p className="fullscreen-task-category main-text">{'Категория: ' + currentTask.category}</p>
                             <p className="fullscreen-task-weight main-text">Вес:<span className={['fullscreen-task-weight-decorate', 'fullscreen-task-weight-decorate-' + color].join(' ')}>{currentTask.weight}</span></p>
                             <p className="fullscreen-task-priority main-text">{currentTask.priority}</p>
-                            <p className="fullscreen-task-time main-text">{currentTask.begin + ' - '+ currentTask.end}</p>
+                            <p className="fullscreen-task-time main-text">{currentTask.begin + ' - ' + currentTask.end}</p>
                             <CategoryBox type='status' taskCategory={currentStatus} setTaskCategory={setCurrentStatus} status={statuses[currentTask.status] + ' ' + (currentTask.status === 'success' ? currentTask.when_end : '')} />
                             {files[currentTask.id] && <p className="fullscreen-task-name">Сопутствующие файлы:</p>}
                             {files[currentTask.id].map(f => <div key={f} className='fullscreen-task-file' onClick={() => window.open(config.url + '/' + f)}>{f.replace('static/', '')}</div>)}
@@ -105,10 +138,11 @@ function UserPage({ user, setUser, ...props }) {
                 <Link to='/' onClick={logout} className='main-text logout-btn'>Выйти</Link>
                 <Button onClick={getMyTasks} className='button-violet reload-button'>Обновить список задач</Button>
                 <div className="sort-block block-section">
-
+                    <Input className='search-input' changeValueFun={(e) => setSearchQuery(e.target.value)} inputValue={searchQuery} placeholder='Поиск...' />
+                    <CategoryBox taskCategory={sortType} setTaskCategory={setSortType} type={'sort'} />
                 </div>
                 <div className='user-task-wrapper'>
-                    {tasks.map(t =>
+                    {sortedTasks.map(t =>
                         <Task handleClick={() => setCurrentTask(t)} key={t.id} task={t} />
                     )}
                 </div>

@@ -1,0 +1,26 @@
+.sort-block{
+    margin-bottom: 20px;
+}
+
+.all-tasks-title{
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 550px){
+    .fullscreen-task-buttons{
+        flex-direction: column-reverse;
+    }
+    .fullscreen-task-buttons > *{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .change-task-h2{
+        font-size: 16px;
+    }
+}
+
+.change-task > :not(:last-child){
+    margin-bottom: 20px;
+}
+

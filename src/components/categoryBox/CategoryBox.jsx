@@ -15,6 +15,10 @@ function CategoryBox({taskCategory, setTaskCategory, ...props}) {
         title = 'Текущий статус: ' + props.status
         list = ['Не начата', 'В процессе', 'Завершена']
     }
+    else if(props.type === 'sort'){
+        title='Сортировать'
+        list = ['По весу', 'По дедлайну']
+    }
     else{
         title = 'Выберите приоритет'
         list = ['Срочная задача', 'Рядовая задача', 'Необязательная задача']

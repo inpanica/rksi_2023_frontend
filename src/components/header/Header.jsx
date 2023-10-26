@@ -14,16 +14,19 @@ function Header({ user, ...props }) {
                     <>
                         <Link to='/add-task' className="main-text header-link">Добавить задачу</Link>
                         <Link to='/me' className="main-text header-link">Личный кабинет</Link>
-                        <Link to='/' className="main-text header-link">Главная</Link>
+
                     </>
                 }
                 {
-                    (user.name === '') && 
+                    (user.name === '') &&
                     <>
                     </>
                 }
                 {user.isAdmin &&
-                    <Link to='/add-user' className="main-text header-link">Пользователи</Link>
+                    <>
+                        <Link to='/all-tasks' className="main-text header-link">Все задачи</Link>
+                        <Link to='/add-user' className="main-text header-link">Пользователи</Link>
+                    </>
                 }
             </header>
         </div>

@@ -26,7 +26,8 @@ export const registration = async (email, name, password, isAdmin) => {
         email: email,
         name: name,
         password: password,
-        is_admin: isAdmin
+        is_admin: isAdmin,
+        is_superuser: false
     }, {
         headers: {
             'Content-Type': 'application/vnd.api+json'
@@ -104,10 +105,7 @@ export const sendTask = async (task) => {
 }
 
 export const changeTask = async (changed) => {
-    const changedSt = Object.keys(changed).map(a => {
-        return String(a) + '=' + String(changed[a])
-    }).join('&')
-    const response = await axios.patch(config.url + `/task/patch?${changedSt}`, {
+    const response = await axios.patch(config.url + '/task/patch', changed, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -123,3 +121,22 @@ export const getTasks = async (email) => {
     })
     return response
 }
+
+export const getAllTasks = async () => {
+    const response = await axios.get(config.url + `/task/all`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
+}
+
+export const deleteTask = async (id) => {
+    const response = await axios.delete(config.url + `/task/delete?task_id=${id}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return response
+}
+
