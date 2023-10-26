@@ -29,8 +29,7 @@ function Registration() {
             setName('');
             setEmail('');
             setPassword('');
-            // const responseEmail = sendEmail(response.data.email);
-            // console.log(responseEmail);
+            // const responseEmail = await sendEmail(response.data.email);
         }
     }
 
