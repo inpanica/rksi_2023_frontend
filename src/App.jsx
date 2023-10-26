@@ -34,11 +34,11 @@ function App() {
                     <Routes>
                         {user.isAdmin &&
                             <>
-                                <Route path='/all-tasks' element={<AllTasks />} />
-                                <Route path='/add-user' element={<Registration />} />
+                                <Route path='/add-user' element={<Registration user={user}/>} />
                             </>
                         }
                         <Route path='/add-task' element={<CreateTask />} />
+                        <Route path='/all-tasks' element={<AllTasks />} />
                         <Route path='/me' exact element={<UserPage user={user} setUser={setUser} />} />
                         <Route path='/*' element={<Navigate to='/me' />} />
                     </Routes>

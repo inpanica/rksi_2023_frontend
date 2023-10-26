@@ -13,8 +13,8 @@ function Header({ user, ...props }) {
                     !(user.name === '') &&
                     <>
                         <Link to='/add-task' className="main-text header-link">Добавить задачу</Link>
+                        <Link to='/all-tasks' className="main-text header-link">Все задачи</Link>
                         <Link to='/me' className="main-text header-link">Личный кабинет</Link>
-
                     </>
                 }
                 {
@@ -24,7 +24,6 @@ function Header({ user, ...props }) {
                 }
                 {user.isAdmin &&
                     <>
-                        <Link to='/all-tasks' className="main-text header-link">Все задачи</Link>
                         <Link to='/add-user' className="main-text header-link">Пользователи</Link>
                     </>
                 }

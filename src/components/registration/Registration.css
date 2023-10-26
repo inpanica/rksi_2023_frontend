@@ -18,3 +18,16 @@
 .admin-section{
     margin-bottom: 50px;
 }
+
+.reg-name{
+    margin-bottom: 10px;
+}
+
+.reg-users-user{
+    display: flex;
+    justify-content: space-between;
+}
+
+.reg-users-title{
+    margin-bottom: 20px;
+}

@@ -84,18 +84,16 @@ function CreateTask() {
             }
             const response = await sendTask(task)
             if (response.status === 200) {
-                const r = await sendFiles(response.data)
-                if (r.status === 200) {
-                    setEndTime('')
-                    setStartTime('')
-                    setTaskTitle('')
-                    setTaskDecrtiption('')
-                    setTaskWeight(1)
-                    setTaskComment('')
-                    setAcceptedUsers([])
-                    setTaskCategory('')
-                    setTaskPriority('')
-                }
+                const r = sendFiles(response.data)
+                setEndTime('')
+                setStartTime('')
+                setTaskTitle('')
+                setTaskDecrtiption('')
+                setTaskWeight(1)
+                setTaskComment('')
+                setAcceptedUsers([])
+                setTaskCategory('')
+                setTaskPriority('')
             }
         }
     }

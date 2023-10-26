@@ -3,14 +3,16 @@ import '../../App.css'
 import './Registration.css'
 import Button from '../button/Button.jsx'
 import Input from '../input/Input.jsx'
-import { registration, sendEmail, deleteUser} from '../../actions.js'
+import { registration, sendEmail, deleteUser, getAllUsers } from '../../actions.js'
 
-function Registration() {
+function Registration({user, ...props}) {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
+
+    const [allUsers, setAllUsers] = useState([])
 
     const [deleteEmail, setDeleteEmail] = useState('')
 
@@ -18,7 +20,7 @@ function Registration() {
     const [delButtonEnabled, setDelButtonEnabled] = useState(false)
 
     const sendForm = async () => {
-        if (!buttonEnabled){
+        if (!buttonEnabled) {
             const requiredList = [!email ? 'почта\n' : '',
             !password ? 'пароль\n' : '',
             ].join('')
@@ -29,24 +31,25 @@ function Registration() {
             setName('');
             setEmail('');
             setPassword('');
+            getUsers();
             // const responseEmail = await sendEmail(response.data.email);
         }
     }
 
     useEffect(() => {
-        if(!name || !email || !password || !email.includes('@') || password.length < 8){
+        if (!name || !email || !password || !email.includes('@') || password.length < 8) {
             setButtonEnabled(false)
         }
-        else{
+        else {
             setButtonEnabled(true)
         }
     }, [name, email, password])
 
     useEffect(() => {
-        if(!deleteEmail || !deleteEmail.includes('@')){
+        if (!deleteEmail || !deleteEmail.includes('@')) {
             setDelButtonEnabled(false)
         }
-        else{
+        else {
             setDelButtonEnabled(true)
         }
     }, [deleteEmail])
@@ -54,6 +57,36 @@ function Registration() {
     const deleteByEmail = async () => {
         const resposnse = await deleteUser(deleteEmail);
         setDeleteEmail('');
+        getUsers();
+    }
+
+    const getUsers = async () => {
+        const response = await getAllUsers();
+        if (response.status === 200) {
+            let newArray = [];
+            for (var key in response.data) {
+                if (response.data.hasOwnProperty(key)) {
+                    var newObj = {};
+                    newObj["name"] = key;
+                    newObj["email"] = response.data[key];
+                    newArray.push(newObj);
+                }
+            }
+            setAllUsers(newArray)
+        }
+    }
+
+    useEffect(() => {
+        getUsers();
+    }, [])
+
+    const changeCurrentUser = (u) => {
+        if (deleteEmail === u.email) {
+            setDeleteEmail('')
+        }
+        else {
+            setDeleteEmail(u.email)
+        }
     }
 
     return (
@@ -69,11 +102,27 @@ function Registration() {
                 </div>
                 <Button onClick={sendForm} className={["button-red", !buttonEnabled ? 'button-disabled' : ''].join(' ')}>Создать</Button>
             </section>
-            <section className='block-section form-section'>
-                <h2 className="h2-title align-center">Удалить пользователя</h2>
-                <Input changeValueFun={(e) => setDeleteEmail(e.target.value)} inputValue={deleteEmail} placeholder="Почта"></Input>
-                <Button onClick={deleteByEmail} className={["button-red", !delButtonEnabled ? 'button-disabled' : ''].join(' ')}>Удалить</Button>
-            </section>
+            <h2 className="h2-title align-center reg-users-title">Все пользователи</h2>
+            <div>
+                {
+                    
+                    allUsers.map(u =>
+                        <div onClick={() => changeCurrentUser(u)} key={u.email} className={['all-users-user reg-users-user', u.email === deleteEmail ? 'all-users-user-active' : ''].join(' ')}>
+                            <div className="reg-user-info">
+                                <div className="all-users-user-name reg-name">
+                                    {u.name}
+                                </div>
+                                <div className="all-users-user-email">
+                                    {u.email}
+                                </div>
+                            </div>
+                            {
+                                (u.email === deleteEmail && allUsers.length > 1 && user.email !== u.email) && <Button onClick={deleteByEmail} className={["button-red", !delButtonEnabled ? 'button-disabled' : ''].join(' ')}>Удалить</Button>
+                            }
+                        </div>
+                    )
+                }
+            </div>
         </div>
     )
 }

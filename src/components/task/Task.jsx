@@ -26,6 +26,7 @@ function Task({ task, handleClick, files, ...props }) {
     return (
         <div onClick={() => handleClick()} key={task.id} className='user-task'>
             <p className="user-task-name">{task.name}</p>
+            <p className="user-task-priority main-text">{'для ' + task.users}</p>
             <p className="user-task-description main-text">{task.description}</p>
             <p className="user-task-priority main-text">{task.priority}</p>
             <p className="user-task-status main-text">{statuses[task.status] + ' ' + (task.status === 'success' ? task.when_end : '')}</p>

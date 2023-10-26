@@ -1,26 +1,92 @@
-.sort-block{
+.sort-block {
     margin-bottom: 20px;
 }
 
-.all-tasks-title{
+.all-tasks-title {
     margin-bottom: 20px;
 }
 
-@media screen and (max-width: 550px){
-    .fullscreen-task-buttons{
+@media screen and (max-width: 550px) {
+    .fullscreen-task-buttons {
         flex-direction: column-reverse;
     }
-    .fullscreen-task-buttons > *{
+
+    .fullscreen-task-buttons>* {
         width: 100%;
         margin-bottom: 20px;
     }
 
-    .change-task-h2{
+    .change-task-h2 {
         font-size: 16px;
     }
 }
 
-.change-task > :not(:last-child){
+.change-task> :not(:last-child) {
     margin-bottom: 20px;
 }
 
+.all-users {
+    box-shadow: 0px 4px 20px 0px rgba(27, 29, 44, 0.50);
+    height: 100%;
+    background-color: #24263A;
+    top: 0;
+    padding: 100px 20px;
+    position: fixed;
+    transform: translateX(-250px);
+    transition: .5s ease-out all;
+}
+
+.all-users-user {
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.all-users-close-btn{
+    display: none;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.all-users-user:hover {
+    background-color: #2F314A;
+}
+
+.all-users-user-active {
+    background-color: #2F314A;
+}
+
+.all-users-active{
+    transform: translateX(0);
+}
+
+.all-users-open-btn{
+    background: rgba(224, 147, 115, 0.3);
+    top: 100px;
+    position: fixed;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 1300px){
+    .all-users-close-btn{
+        display: block;
+    }
+    
+}
+
+@media screen and (max-width:400px){
+    .all-users{
+        width: 100%;
+        transform: translateX(-500px);
+    }
+
+    .all-users-active{
+        transform: translateX(0);
+    }
+}
+
+.all-useres-users{
+    max-height: 80vh;
+    overflow-y: scroll;
+}
