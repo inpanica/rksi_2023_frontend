@@ -111,6 +111,7 @@ function AllTasks({ user, setUser, ...props }) {
             setCurrentStatus('');
             setCurrentTask({})
             getAllUsersTasks();
+            setCurrentUser(currentUser)
         }
     }
 

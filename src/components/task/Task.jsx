@@ -21,7 +21,7 @@ function Task({ task, handleClick, files, ...props }) {
         else{
             setColor('red')
         }
-    }, [])
+    }, [task.weight])
 
     return (
         <div onClick={() => handleClick()} key={task.id} className='user-task'>
