@@ -108,7 +108,7 @@ function AllTasks({ user, setUser, ...props }) {
             "description": currentTaskChanged.description,
             "name": currentTaskChanged.name,
             "task_id": currentTask.id,
-            "status": currentStatus,
+            "status": currentTaskChanged.status,
             "when_end": currentTaskChanged.when_end
         }
         const response = await changeTask(changed);
